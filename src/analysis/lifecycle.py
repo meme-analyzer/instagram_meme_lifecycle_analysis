@@ -44,9 +44,9 @@ def run_lifecycle_analysis():
     daily_df["delta"] = daily_df["moving_avg"].diff().rolling(window=3, min_periods=1).mean()
 
     def classify_phase(x):
-        if x > -10.5:
+        if x > 0:
             return "성장기"
-        elif x < -10.3:
+        elif x < 0:
             return "쇠퇴기"
         else:
             return "정체기"
@@ -56,6 +56,8 @@ def run_lifecycle_analysis():
     # 저장
     daily_df.to_csv(output_path / f"{meme_name}_lifecycle.csv", index=False, encoding="utf-8-sig")
 
+if __name__ == "__main__":
+    run_lifecycle_analysis()
 
 # from pathlib import Path
 # import pandas as pd

@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # 1. Instagram 수집 및 전처리
     print("=" * 50)
     print("\n[1] Instagram 수집 (수동 로그인 필요)\n")
-    # run_script("data_collection/instagram.py")  # 필요 시 주석 해제
+    # run_script("data_collection/instagram.py")
 
     # 2. Engagement 분석 및 대시보드
     print("=" * 50)

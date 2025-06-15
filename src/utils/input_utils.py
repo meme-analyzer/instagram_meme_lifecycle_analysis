@@ -12,8 +12,8 @@ def meme_name_from_user():
         with open(cache_meme_name, "r", encoding="utf-8") as f:
             return json.load(f)["meme_name"]
 
-    #  meme_name = input("검색할 밈을 입력하세요 : ").strip().lstrip("#")
-    meme_name = "sample"
+    meme_name = input("검색할 밈을 입력하세요 : ").strip().lstrip("#")
+    # meme_name = "sample"
     with open(cache_meme_name, "w", encoding="utf-8") as f:
         json.dump({"meme_name": meme_name}, f, ensure_ascii=False)
     return meme_name

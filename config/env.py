@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 인스타그램 로그인 정보
-INSTAGRAM_USERNAME = os.getenv("ohchabong_3743")
-INSTAGRAM_PASSWORD = os.getenv("test3743")
+INSTAGRAM_USERNAME = os.getenv("INSTAGRAM_USERNAME")
+INSTAGRAM_PASSWORD = os.getenv("INSTAGRAM_PASSWORD")
 
 # 환경변수 누락 시 경고를 주고 싶다면 아래 유틸을 사용하세요.
 def require_env(var_name):

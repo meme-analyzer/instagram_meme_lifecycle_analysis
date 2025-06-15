@@ -60,9 +60,9 @@ for i in range(3):  # 예시로 10개의 게시물만 수집
         time_tag = soup.find("time", attrs={"datetime": True})
         post_time = time_tag["datetime"] if time_tag else ""
 
-        # # 좋아요 수
+        # 좋아요 수
         likes = 0
-        target_class = "html-span xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1hl2dhg x16tdsg8 x1vvkbs"
+        target_class = "html-span xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x1hl2dhg x16tdsg8 x1vvkbs"        # 실제 클레스 명
         like_tag = next(
             (tag for tag in soup.find_all("span") if tag.get("class") and " ".join(tag.get("class")) == target_class),
             None
@@ -85,7 +85,7 @@ for i in range(3):  # 예시로 10개의 게시물만 수집
 
         # 작성자 계정명
         username = ""
-        target_user_class = "x1i10hfl xjbqb8w x1ejq31n xd10rxx x1sy0etr x17r0tee x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz _aswp _aswq _aswv _aswz _asw_ _asx2 _a6hd"
+        target_caption_class = "x6ikm8r x10wlt62 xlyipyv xuxw1ft"     # 실제 클레스 명
         user_tag = next(
             (tag for tag in soup.find_all("a") if tag.get("class") and " ".join(tag.get("class")) == target_user_class),
             None
@@ -103,11 +103,12 @@ for i in range(3):  # 예시로 10개의 게시물만 수집
         all_data.append(data)
         input("넘어가기")
         # 다음 버튼 클릭
-        next_button = WebDriverWait(driver, 5).until(
+        next_button = WebDriverWait(driver, 100).until(
             EC.element_to_be_clickable((By.XPATH, '//button[.//svg[@aria-label="다음"] or .//*[text()="다음"]]'))
         )
         next_button.click()
         print("✅ 다음 게시물로 이동")
+        time.sleep(1)  # 페이지 로딩 대기
 
     except Exception:
         print("📍 더 이상 다음 게시물이 없습니다.")

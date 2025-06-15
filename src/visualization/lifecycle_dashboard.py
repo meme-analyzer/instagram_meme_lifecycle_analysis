@@ -54,9 +54,11 @@ def add_phase_background(ax, df, phase_column="phase", x_column="date", phase_co
 def plot_daily_trend():
     plt.figure(figsize=(12, 6))
     ax = plt.gca()
-    ax.plot(df["date"], df["count"], label="일일 게시물 수", alpha=0.3)
-    ax.plot(df["date"], df["moving_avg"], label="7일 이동 평균", color="blue", linewidth=2)
-    ax.legend()
+    phase_handles = add_phase_background(ax, df, return_legend=True)
+    line1, = ax.plot(df["date"], df["count"], label="일일 게시물 수", alpha=0.3)
+    line2, = ax.plot(df["date"], df["moving_avg"], label="7일 이동 평균", color="blue", linewidth=2)
+    handles = [line1, line2] + phase_handles
+    ax.legend(handles=handles)
     ax.set_title(f"'{meme_name}' 일일 트렌드 변화", fontsize=14)
     ax.set_xlabel("날짜")
     ax.set_ylabel("게시물 수")
@@ -70,8 +72,7 @@ def plot_daily_trend():
 def plot_cumulative_trend():
     plt.figure(figsize=(12, 6))
     ax = plt.gca()
-    legend_handles = add_phase_background(ax, df, return_legend=True)
-    ax.legend(handles=legend_handles)
+    ax.legend()
     ax.plot(df["date"], df["cumulative"], label="누적 게시물 수", color="green")
     ax.fill_between(df["date"], df["cumulative"], color="green", alpha=0.2)
     ax.set_title(f"'{meme_name}' 누적 게시물 변화", fontsize=14)
@@ -108,16 +109,15 @@ def plot_lifecycle_dashboard():
     fig.suptitle(f"'{meme_name}' 밈 수명 주기 대시보드", fontsize=18, weight="bold")
 
     # 일일 게시물 수
-    ax1.plot(df["date"], df["count"], label="일일 게시물 수", alpha=0.3)
-    ax1.plot(df["date"], df["moving_avg"], label="7일 이동 평균", color="blue", linewidth=2)
+    phase_handles = add_phase_background(ax1, df, return_legend=True)
+    line1, = ax1.plot(df["date"], df["count"], label="일일 게시물 수", alpha=0.3)
+    line2, = ax1.plot(df["date"], df["moving_avg"], label="7일 이동 평균", color="blue", linewidth=2)
     ax1.set_ylabel("게시물 수")
     ax1.set_title("일일 트렌드 변화")
     ax1.grid(True, alpha=0.3)
-    ax1.legend()
+    ax1.legend(handles=[line1, line2] + phase_handles)
 
     # 누적 게시물 수 + 구간 배경 표시
-    legend_handles = add_phase_background(ax2, df, return_legend=True)
-    ax2.legend(handles=legend_handles)
     ax2.plot(df["date"], df["cumulative"], label="누적 게시물 수", color="green")
     ax2.fill_between(df["date"], df["cumulative"], color="green", alpha=0.2)
     ax2.set_ylabel("누적 수")
